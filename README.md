@@ -1,2 +1,2 @@
 # Linguagem-C
-Alguns códigos aí
+Não me responsabilizo
