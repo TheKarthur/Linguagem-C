@@ -2,15 +2,20 @@
 #include <stdlib.h>
 #define cls system("cls")
 
-int sinal(float * frequencia, float * periodo)
+int sinal(float * frequencia, float * periodo, int * contador)
 {
+    *contador=0;
 
-    if(*frequencia==0 && *periodo==0){
-        return -1;
+    if(*frequencia==0){
+        *contador+=1;
     }
 
-    if(*frequencia!=0 && *periodo!=0){
-        return 1;
+    if(*periodo==0){
+        *contador+=1;
+    }
+
+    if(*contador!=1){
+        return -1;
     }
 
     if(*frequencia==0){
@@ -26,6 +31,7 @@ int sinal(float * frequencia, float * periodo)
 int main()
 {
     float freq, per;
+    int cont, aux;
 
     do{
     printf("Digite o valor do frequencia\n");
@@ -34,21 +40,20 @@ int main()
     printf("Digite o valor do periodo\n");
     scanf("%f", &per);
     cls;
+    aux=sinal(&freq, &per, &cont);
 
-    if(sinal(&freq, &per)!=0){
+    if(aux==-1){
         printf("Valores invalidos\n");
+        printf("Valor do erro : %i\n", aux);
         system("pause");
         cls;
     }
 
-    printf("Codigo de erro: %i",sinal(&freq, &per));
-    system("pause");
-    cls;
+    }while(aux==-1);
 
-    }while(sinal(&freq, &per)!=0);
-
-    printf("Frequencia: %f\n", freq);
-    printf("Periodo: %f\n", per);
+    printf("Frequencia: %f Hz\n", freq);
+    printf("Periodo: %f s\n", per);
+    printf("\nArthur Rodrigues Padilha - Turma 4212\n");
 
     return 0;
 }
