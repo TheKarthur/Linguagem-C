@@ -100,10 +100,10 @@ system("cls");
 printf("Digite o que deseja fazer:\n\n");
 printf("1 - imagem original    2 - imagem cinza    3 - borrar imagem cinza\n");
 printf("\n4 - borrar imagem colorida    5 - filtro de borda    6 - Achar objeto\n");
-printf("\n7 - retirar cor    8 - distancia entre objetos\n\n");
+printf("\n7 - retirar cor\n\n");
 
 scanf("%i", &op);
-}while(op < 1 || op > 8);
+}while(op < 1 || op > 7);
 
 int red, green, blue, red2, green2, blue2;
 int pixel_mais_abaixo=0, pixel_mais_acima=0, pixel_mais_a_direita=0, pixel_mais_a_esquerda=0;
@@ -137,7 +137,7 @@ if(op==5){
     }while(op2 < 1 || op2 > 2);
 }
 
-if(op==6 || op==8){
+if(op==6){
     system("cls");
     printf("Digite a cor do objeto:\n");
     printf("RED:        \n");
@@ -165,37 +165,6 @@ if(op==6 || op==8){
         scanf("%i", &blue);
         fflush(stdin);
     }while(blue<0 || blue>255);
-
-}
-
-if(op==8){
-    system("cls");
-    printf("Digite a cor do outro objeto:\n");
-    printf("RED:        \n");
-    printf("GREEN:      \n");
-    printf("BLUE:       \n");
-
-    do{
-        gotoxy(5,1);
-        printf("                                                  ");
-        gotoxy(5,1);
-        scanf("%i", &red2);
-        fflush(stdin);
-    }while(red2<0 || red2>255);
-    do{
-        gotoxy(7,2);
-        printf("                                                  ");
-        gotoxy(7,2);
-        scanf("%i", &green2);
-        fflush(stdin);
-    }while(green2<0 || green2>255);
-    do{
-        gotoxy(6,3);
-        printf("                                                  ");
-        gotoxy(6,3);
-        scanf("%i", &blue2);
-        fflush(stdin);
-    }while(blue2<0 || blue2>255);
 
 }
 
@@ -379,7 +348,7 @@ pixels[i+2] = 0;// red *pixels(I+2);
 
 if(op==5 && op2==1){ // filtro de borda 3x3
     if(i>inf.largura_imagem*desloc && i<size_i - (inf.largura_imagem*(desloc))){
-    
+
     media= (media_pixels[aux])*(8); //pixel do meio
     media+= (media_pixels[aux+1])*(-1); //pixel meio direita
     media+= (media_pixels[aux-1])*(-1); // pixel meio esquerda
@@ -389,7 +358,7 @@ if(op==5 && op2==1){ // filtro de borda 3x3
     media+= (media_pixels[aux+inf.largura_imagem-1])*(-1); // cima esquerda
     media+= (media_pixels[aux-inf.largura_imagem+1])*(-1); // pixel baixo direita
     media+= (media_pixels[aux-inf.largura_imagem+1])*(-1); // pixel baixo esquerda
-   
+
     if(media>(-50)||media<50){
         pixels[i] = 255;// blue *Pixels;
         pixels[i+1] =255;// green *pixels(i+1);
@@ -411,7 +380,7 @@ pixels[i+2] = 0;// red *pixels(I+2);
 
 if(op==5 && op2==2){ // filtro borda 5x5
     if(i>(inf.largura_imagem*desloc)*2 && i<size_i - ((inf.largura_imagem*(desloc))*2)){
-        
+
         media= (media= media_pixels[aux])*(16); //pixel do meio
         media+= (media_pixels[aux+1])*(-2); //pixel meio direita
         media+= (media_pixels[aux-1])*(-2); // pixel meio esquerda
@@ -421,13 +390,13 @@ if(op==5 && op2==2){ // filtro borda 5x5
         media+= (media_pixels[aux+inf.largura_imagem-1])*(-1); // cima esquerda
         media+= (media_pixels[aux-inf.largura_imagem+1])*(-1); // pixel baixo direita
         media+= (media_pixels[aux-inf.largura_imagem+1])*(-1); // pixel baixo esquerda
-    
+
         media+= (media_pixels[aux-2])*(-1); // pixel meio e 2 pra esquerda
         media+= (media_pixels[aux+2])*(-1); // pixel meio e 2 pra direita
 
         media+= (media_pixels[aux+(2*inf.largura_imagem)])*(-1); // pixel meio 2 pra cima
         media+= (media_pixels[aux-(2*inf.largura_imagem)])*(-1); // pixel meio 2 pra baixo
-        
+
         //getchar();
         if(media>(-50)||media<50){
             pixels[i] = 255;// blue *Pixels;
@@ -446,9 +415,9 @@ if(op==5 && op2==2){ // filtro borda 5x5
     pixels[i+2] = 0;// red *pixels(I+2);
     }
 }
-if(op==6 || op==8){ // achar objeto || distancia entre dois objetos
+if(op==6){ // achar objeto || distancia entre dois objetos
     if(i>(inf.largura_imagem*desloc)*2 && i<size_i - ((inf.largura_imagem*(desloc))*2)){
-    
+
     if(pixels2[i]==blue && pixels2[i+1]==green && pixels2[i+2]==red){
     aux2=(((i/desloc)+1)/inf.largura_imagem); //linha atual - 1
     if(cont_pixel==0){
@@ -459,7 +428,7 @@ if(op==6 || op==8){ // achar objeto || distancia entre dois objetos
     }
     pixel_mais_acima=(i/desloc)+1;
     aux3=((i/desloc)+1)-(aux2*inf.largura_imagem); // pixel atual da linha
-    
+
     if(aux3>aux4){
         aux4=aux3;
         pixel_mais_a_direita=(i/desloc)+1;
@@ -471,15 +440,15 @@ if(op==6 || op==8){ // achar objeto || distancia entre dois objetos
 
     pixels[i] = blue;// blue *Pixels;
     pixels[i+1] =green;// green *pixels(i+1);
-    pixels[i+2] = red;// red *pixels(I+2);     
+    pixels[i+2] = red;// red *pixels(I+2);
     }
     else{
     pixels[i] = 255;// blue *Pixels;
     pixels[i+1] = 255;// green *pixels(i+1);
-    pixels[i+2] = 255;// red *pixels(I+2);        
+    pixels[i+2] = 255;// red *pixels(I+2);
     }
     }
-    
+
     else{
     pixels[i] = 0;// blue *Pixels;
     pixels[i+1] = 0;// green *pixels(i+1);
@@ -489,7 +458,7 @@ if(op==6 || op==8){ // achar objeto || distancia entre dois objetos
     if(op==7){ // retirar cores
         if(op3 == 1){
             pixels[i+2] = 0; // red *pixels(I+2);
-        }        
+        }
         if(op3 == 2){
             pixels[i+1] = 0; // green *pixels(i+1);
         }
@@ -499,7 +468,7 @@ if(op==6 || op==8){ // achar objeto || distancia entre dois objetos
         }
         if(op3 == 4){
             pixels[i] = 0;   // blue *Pixels;
-        }        
+        }
         if(op3 == 3){
             pixels[i+2] = 0; // red *pixels(I+2);
             pixels[i+1] = 0; // green *pixels(i+1);
